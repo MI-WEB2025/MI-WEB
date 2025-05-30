@@ -40,7 +40,7 @@
 				100
 			);
 
-			renderer.setClearColor(0xFFFFFF);
+			renderer.setClearColor(0xffffff);
 
 			const orbit = new OrbitControls(camera, renderer.domElement);
 
@@ -65,7 +65,7 @@
 			
 				gltfLoader.load('./modelo/diseños.glb', function(gltf) {
 					const model = gltf.scene;
-					model.position.set(0, 1.5, 0);
+					model.position.set(0, 0, 0);
 					model.traverse((o) => {
 						if (o.isMesh) {
 						o.material.wireframe = true;
