@@ -40,11 +40,11 @@
 				100
 			);
 
-			renderer.setClearColor(0xA3A3A3);
+			renderer.setClearColor(0xFFFFFF);
 
 			const orbit = new OrbitControls(camera, renderer.domElement);
 
-			camera.position.set(0, 5, 16);
+			camera.position.set(0, 5, 10);
 			orbit.update();
 
 			const grid = new THREE.GridHelper(100, 100);
