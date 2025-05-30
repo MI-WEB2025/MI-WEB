@@ -85,7 +85,7 @@ a, button, input, select {
 #notSupported {
 	width: 50%;
 	margin: auto;
-	background-color: #f00;
+	background-color: 0xffffff;
 	margin-top: 20px;
 	padding: 10px;
 }
