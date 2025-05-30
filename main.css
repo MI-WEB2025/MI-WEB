@@ -3,7 +3,7 @@ body {
 	background-color: #000;
 	color: #fff;
 	font-family: Monospace;
-	font-size: 13px;
+	font-size: 23px;
 	line-height: 24px;
 	overscroll-behavior: none;
 }
@@ -85,7 +85,7 @@ a, button, input, select {
 #notSupported {
 	width: 50%;
 	margin: auto;
-	background-color: 0xffffff;
+	background-color: 0x000000;
 	margin-top: 20px;
 	padding: 10px;
 }
