@@ -45,7 +45,7 @@
 			const orbit = new OrbitControls(camera, renderer.domElement);
                         orbit.minDistance = 2;
 			orbit.maxDistance = 20;
-			orvit.target.set( 0, 0, - 0.2 );
+			orbit.target.set( 0, 0, - 0.2 );
 			orbit.update();
 
 			const grid = new THREE.GridHelper(100, 100);
