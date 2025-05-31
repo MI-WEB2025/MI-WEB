@@ -42,6 +42,8 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
+			const clock = new THREE.Clock();
+
 			const orbit = new OrbitControls(camera, renderer.domElement);
                         orbit.minDistance = 2;
 			orbit.maxDistance = 20;
