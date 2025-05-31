@@ -88,13 +88,8 @@
 			
 			} );
 
-			const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshPhongMaterial( { color: 0xcbcbcb, depthWrite: false } ) );
-			mesh.rotation.x = - Math.PI / 2;
-			mesh.receiveShadow = true;
-			scene.add( mesh );
-
 			const loader = new GLTFLoader();
-			loader.load( '/modelo/jefe.glb', function ( gltf ) {
+			loader.load( './modelo/jefe.glb', function ( gltf ) {
 
 				const model = gltf.scene;
 				const animations = gltf.animations;
