@@ -94,8 +94,8 @@
 			const loader = new GLTFLoader();
 			loader.load( '/modelo/jefe.glb'', function ( gltf ) {
 
-				model = gltf.scene;
-				animations = gltf.animations;
+				const model = gltf.scene;
+				const animations = gltf.animations;
 
 				model.traverse( function ( object ) {
 
