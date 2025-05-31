@@ -26,12 +26,14 @@
 			import * as THREE from 'three';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+			import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
 			const renderer = new THREE.WebGLRenderer({antialias: true});
-
+			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
-
+			renderer.setAnimationLoop( animate );
+			renderer.shadowMap.enabled = true;
 			document.body.appendChild(renderer.domElement);
 
 			const scene = new THREE.Scene();
@@ -50,8 +52,12 @@
 			scene.add(grid);
 
 			const gltfLoader = new GLTFLoader();
-
 			const rgbeLoader = new RGBELoader();
+
+			const mixers = [], objects = [];
+			const params = {
+				sharedSkeleton: false
+			};
 
 			renderer.outputEncoding = THREE.sRGBEncoding;
 			renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -80,9 +86,100 @@
 			
 			} );
 
+			const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshPhongMaterial( { color: 0xcbcbcb, depthWrite: false } ) );
+			mesh.rotation.x = - Math.PI / 2;
+			mesh.receiveShadow = true;
+			scene.add( mesh );
+
+			const loader = new GLTFLoader();
+			loader.load( 'models/gltf/jefe.glb', function ( gltf ) {
+
+				model = gltf.scene;
+				animations = gltf.animations;
+
+				model.traverse( function ( object ) {
+
+					if ( object.isMesh ) object.castShadow = true;
+
+				} );
+
+				setupDefaultScene();
+
+			} );
+
+			function setupDefaultScene() {
+
+				// three cloned models with independent skeletons.
+				// each model can have its own animation state
+
+				
+				const model3 = SkeletonUtils.clone( model );
+
+				
+				model3.position.x = 2;
+
+				
+				const mixer3 = new THREE.AnimationMixer( model3 );
+
+				
+				mixer3.clipAction( animations[ 3 ] ).play(); // walk
+
+				scene.add(  model3 );
+			
+				objects.push( model3 );
+				mixers.push(  mixer3 );
+
+			}
+
+			function setupSharedSkeletonScene() {
+
+				// three cloned models with a single shared skeleton.
+				// all models share the same animation state
+
+				const sharedModel = SkeletonUtils.clone( model );
+				const shareSkinnedMesh = sharedModel.getObjectByName( 'vanguard_Mesh' );
+				const sharedSkeleton = shareSkinnedMesh.skeleton;
+				const sharedParentBone = sharedModel.getObjectByName( 'mixamorigHips' );
+				scene.add( sharedParentBone ); // the bones need to be in the scene for the animation to work
+
+				const model1 = shareSkinnedMesh.clone();
+				
+
+				
+				
+
+				const identity = new THREE.Matrix4();
+
+				
+				
+
+				
+				
+
+				// apply transformation from the glTF asset
+
+				
+				
+
+				//
+
+				const mixer = new THREE.AnimationMixer( sharedParentBone );
+				mixer.clipAction( animations[ 1 ] ).play();
+
+				scene.add( sharedParentBone, model3 );
+			
+				objects.push( sharedParentBone, model3 );
+				mixers.push( mixer );
+
+			}
+
 			function animate(time) {
  
-				renderer.render(scene, camera);
+				const delta = clock.getDelta();
+
+				for ( const mixer of mixers ) mixer.update( delta );
+
+				renderer.render( scene, camera );
 
 			}
 
