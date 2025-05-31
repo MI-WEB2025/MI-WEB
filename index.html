@@ -93,8 +93,8 @@
 			loader.load( 'modelo/LittlestTokyo.glb', function ( gltf ) {
 
 				const model = gltf.scene;
-				model.position.set( 1, 1, 0 );
-				model.scale.set( 0.10, 0.10, 0.10 );
+				model.position.set( 0, 0, 10 );
+				model.scale.set( 1, 1, 1 );
 				scene.add( model );
 
 				mixer = new THREE.AnimationMixer( model );
