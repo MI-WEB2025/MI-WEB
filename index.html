@@ -29,6 +29,8 @@
 			import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
+			let model, animations, clock;
+
 			const renderer = new THREE.WebGLRenderer({antialias: true});
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
@@ -42,7 +44,7 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
-			const clock = new THREE.Clock();
+		        clock = new THREE.Clock();
 
 			const orbit = new OrbitControls(camera, renderer.domElement);
                         orbit.minDistance = 2;
@@ -91,8 +93,8 @@
 			const loader = new GLTFLoader();
 			loader.load( './modelo/jefe.glb', function ( gltf ) {
 
-				const model = gltf.scene;
-				const animations = gltf.animations;
+				model = gltf.scene;
+				animations = gltf.animations;
 
 				model.traverse( function ( object ) {
 
@@ -102,8 +104,13 @@
 
 				setupDefaultScene();
 
+			}, undefined, function ( error ) {
+			
+				console.error( error );
+			
 			} );
 
+			
 			function clearScene() {
 
 				for ( const mixer of mixers ) {
@@ -131,10 +138,6 @@
 			}
 
 			function setupDefaultScene() {
-
-				// three cloned models with independent skeletons.
-				// each model can have its own animation state
-
 				
 				const model3 = SkeletonUtils.clone( model );
 
