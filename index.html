@@ -28,17 +28,17 @@
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 			import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+			import Stats from 'three/addons/libs/stats.module.js';
 
 			let mixer;
 
 			const clock = new THREE.Clock();
+			const stats = new Stats();
 
 			const renderer = new THREE.WebGLRenderer({antialias: true});
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
-
-			const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
 			const scene = new THREE.Scene();
 
@@ -112,8 +112,8 @@
 			function animate(time) {
 
 				const delta = clock.getDelta();
-
 				mixer.update( delta );
+				stats.update();
 
 				renderer.render( scene, camera );
 
