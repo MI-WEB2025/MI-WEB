@@ -107,6 +107,32 @@
 
 			} );
 
+			function clearScene() {
+
+				for ( const mixer of mixers ) {
+
+					mixer.stopAllAction();
+
+				}
+
+				mixers.length = 0;
+
+				//
+
+				for ( const object of objects ) {
+
+					scene.remove( object );
+
+					scene.traverse( function ( child ) {
+
+						if ( child.isSkinnedMesh ) child.skeleton.dispose();
+
+					} );
+
+				}
+
+			}
+
 			function setupDefaultScene() {
 
 				// three cloned models with independent skeletons.
