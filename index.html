@@ -95,10 +95,10 @@
 				const model = gltf.scene;
 				model.position.set( 0, 0, 2 );
 				model.scale.set( 1, 1, 1 );
-				model.setClearColor(0x000000);
 				model.traverse((o) => {
 					if (o.isMesh) {
 					o.material.wireframe = true;
+					o.material.color.set(0x000000);	
 					}
 				});
 				scene.add( model );
