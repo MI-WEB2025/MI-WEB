@@ -81,6 +81,11 @@
 				const gltf = await loader.loadAsync( './modelo/diseños.glb' );
 
 				const model = gltf.scene;
+				model.traverse((o) => {
+						if (o.isMesh) {
+						o.material.wireframe = true;
+						}
+				});
 				scene.add( model );
 
 				mixer = new THREE.AnimationMixer( model );
