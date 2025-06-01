@@ -85,13 +85,6 @@
 			
 			} );
 			
-			function animate(time) {
-				
-				renderer.render(scene, camera);
-                                
-			}
-
-			renderer.setAnimationLoop(animate);
 
 			window.addEventListener('resize', function() {
 				camera.aspect = window.innerWidth / window.innerHeight;
@@ -227,6 +220,8 @@
 				postProcessing.render();
 
 				stats.update();
+
+				renderer.render(scene, camera);
 
 			}
 
