@@ -94,9 +94,9 @@
 			} );
 			
 			function animate(time) {
- 
-				renderer.render(scene, camera);
                                 postProcessing.render();
+				renderer.render(scene, camera);
+                                
 			}
 
 			renderer.setAnimationLoop(animate);
