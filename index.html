@@ -27,16 +27,8 @@
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
-			import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-			import Stats from 'three/addons/libs/stats.module.js';
-
-			let mixer;
-
-			const clock = new THREE.Clock();
-			const stats = new Stats();
 
 			const renderer = new THREE.WebGLRenderer({antialias: true});
-			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
 
@@ -84,46 +76,9 @@
 				console.error( error );
 			
 			} );
-
-			const dracoLoader = new DRACOLoader();
-			dracoLoader.setDecoderPath( 'jsm/libs/draco/gltf/' );
-
-			const loader = new GLTFLoader();
-			loader.setDRACOLoader( dracoLoader );
-			loader.load( 'modelo/LittlestTokyo.glb', function ( gltf ) {
-
-				const model = gltf.scene;
-				model.position.set( 0, 0, 2 );
-				model.scale.set( 1, 1, 1 );
-				model.traverse((o) => {
-					if (o.isMesh) {
-					o.material.wireframe = true;
-					o.material.color.set(0x000000);	
-					}
-				});
-				scene.add( model );
-
-				mixer = new THREE.AnimationMixer( model );
-				mixer.clipAction( gltf.animations[ 0 ] ).play();
-
-				renderer.setAnimationLoop( animate );
-
-			}, undefined, function ( e ) {
-
-				console.error( e );
-
-			} );
-
 			
 			function animate() {
-
-				const delta = clock.getDelta();
-				mixer.update( delta );
-				stats.update();
-				orbit.update();
-
 				renderer.render( scene, camera );
-
 			}
 
 			
