@@ -68,8 +68,8 @@
 
 				const scene = new THREE.Scene();
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( - 5, 2.5, - 3.5 );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100 );
+				camera.position.set( 0, 4, 5 );
 				scene.add( camera );
 
 				scene.add( new THREE.AmbientLight( 0xcccccc ) );
@@ -121,10 +121,13 @@
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
-				controls.minDistance = 3;
-				controls.maxDistance = 8;
-
+				controls.minDistance = 2;
+				controls.maxDistance = 20;
+                                controls.target.set( 0, 0, - 0.2 );
 				//
+
+				const grid = new THREE.GridHelper(100, 100);
+			        scene.add(grid);
 
 				const gui = new GUI();
 
