@@ -16,6 +16,9 @@
 			{
 				"imports": {
 					"three": "./build/three.module.js",
+			                "three1": "../build/three.webgpu.js",
+					"three1/webgpu": "../build/three.webgpu.js",
+					"three1/tsl": "../build/three.tsl.js",
 					"three/addons/": "./jsm/"
 				}
 			}
@@ -24,12 +27,17 @@
 		<script type="module">
 
 			import * as THREE from 'three';
+			import * as THREE1 from 'three1';
+			import { pass } from 'three1/tsl';
+			import { bloom } from 'three1/addons/tsl/display/BloomNode.js';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
-
+			
 			const renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.toneMapping = THREE.ReinhardToneMapping;
 			document.body.appendChild(renderer.domElement);
 
 			const scene = new THREE.Scene();
@@ -38,6 +46,14 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
+			const postProcessing = new THREE1.PostProcessing( renderer );
+                        const scenePass = pass( scene, camera );
+			const scenePassColor = scenePass.getTextureNode( 'output' );
+
+			const bloomPass = bloom( scenePassColor );
+
+			postProcessing.outputNode = scenePassColor.add( bloomPass );
+			
 			const orbit = new OrbitControls(camera, renderer.domElement);
                         orbit.minDistance = 2;
 			orbit.maxDistance = 20;
@@ -80,7 +96,7 @@
 			function animate(time) {
  
 				renderer.render(scene, camera);
-
+                                postProcessing.render();
 			}
 
 			renderer.setAnimationLoop(animate);
