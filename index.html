@@ -17,8 +17,6 @@
 	
 		<div id="container"></div>
 	
-		
-	
 		<script type="importmap">
 			{
 				"imports": {
@@ -44,7 +42,7 @@
 	
 	
 			let camera, stats;
-			let postProcessing, renderer, mixer, clock;
+			let postProcessing, renderer, clock;
 	
 			const params = {
 				threshold: 0,
@@ -77,10 +75,6 @@
 	
 				const model = gltf.scene;
 				scene.add( model );
-	
-				mixer = new THREE.AnimationMixer( model );
-				const clip = gltf.animations[ 0 ];
-				mixer.clipAction( clip.optimize() ).play();
 	
 				//
 	
@@ -163,10 +157,6 @@
 			}
 	
 			function animate() {
-	
-				const delta = clock.getDelta();
-	
-				mixer.update( delta );
 	
 				postProcessing.render();
 	
