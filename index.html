@@ -16,10 +16,7 @@
 			{
 				"imports": {
 					"three": "./build/three.module.js",
-			                "three1": "./build/three.webgpu.js",
-					"three1/webgpu": "./build/three.webgpu.js",
-					"three1/tsl": "./build/three.tsl.js",
-			                "three1/addons/": "./jsm/",
+			                "three/tsl": "./build/three.tsl.js",
 					"three/addons/": "./jsm/"
 				}
 			}
@@ -28,9 +25,8 @@
 		<script type="module">
 
 			import * as THREE from 'three';
-			import * as THREE1 from 'three1';
-			import { pass } from 'three1/tsl';
-			import { bloom } from 'three1/addons/tsl/display/BloomNode.js';
+			import { pass } from 'three/tsl';
+			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
@@ -47,7 +43,7 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
-			const postProcessing = new THREE1.PostProcessing( renderer );
+			const postProcessing = new THREE.PostProcessing( renderer );
                         const scenePass = pass( scene, camera );
 			const scenePassColor = scenePass.getTextureNode( 'output' );
 
