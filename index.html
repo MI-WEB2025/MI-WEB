@@ -91,6 +91,9 @@
 				mixer = new THREE.AnimationMixer( model );
 				const clip = gltf.animations[ 0 ];
 				mixer.clipAction( clip.optimize() ).play();
+				
+				const grid = new THREE.GridHelper(100, 100);
+			        scene.add(grid);
 
 				//
 
@@ -126,8 +129,7 @@
                                 controls.target.set( 0, 0, - 0.2 );
 				//
 
-				const grid = new THREE.GridHelper(100, 100);
-			        scene.add(grid);
+				
 
 				const gui = new GUI();
 
