@@ -108,7 +108,7 @@
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.shadowMap.enabled = true;
-			container.appendChild( renderer.domElement );
+			
 
 			const controls = new OrbitControls( camera, renderer.domElement );
 			controls.target.set( 0, 0.1, 0 );
