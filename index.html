@@ -45,7 +45,8 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
-			
+			const listener = new THREE.AudioListener();
+			camera.add( listener );
 	
 			const audioElement = document.getElementById( 'music' );
 			audioElement.play();
