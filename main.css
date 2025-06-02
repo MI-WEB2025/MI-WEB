@@ -1,15 +1,15 @@
 body {
 	margin: 0;
 	background-color: #000;
-	color: #000;
+	color: #fff;
 	font-family: Monospace;
-	font-size: 23px;
+	font-size: 13px;
 	line-height: 24px;
 	overscroll-behavior: none;
 }
 
 a {
-	color: #000;
+	color: #ff0;
 	text-decoration: none;
 }
 
@@ -76,7 +76,7 @@ a, button, input, select {
 		border: 0;
 		border: 1px solid rgb(255, 255, 255);
 		border-radius: 4px;
-		color: #000000;
+		color: #ffffff;
 		padding: 12px 18px;
 		text-transform: uppercase;
 		cursor: pointer;
@@ -85,7 +85,8 @@ a, button, input, select {
 #notSupported {
 	width: 50%;
 	margin: auto;
-	background-color: 0x000000;
+	background-color: #f00;
 	margin-top: 20px;
 	padding: 10px;
 }
+
