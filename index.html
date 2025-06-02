@@ -31,7 +31,7 @@
 
 			import * as THREE from 'three';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-			import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
+			import {PositionalAudioHelper} from 'three/addons/helpers/PositionalAudioHelper.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
@@ -87,6 +87,8 @@
 					});
 					model.add( positionalAudio );
 					scene.add(model);
+
+					renderer.setAnimationLoop( animate );
 				});
 
 				
