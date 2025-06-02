@@ -39,7 +39,9 @@
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
 			const startButton = document.getElementById( 'startButton' );
-		        startButton.addEventListener( 'click' );
+		        startButton.addEventListener( 'click', init );
+                        
+			init();
 			
 			const overlay = document.getElementById( 'overlay' );
 			overlay.remove();
