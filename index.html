@@ -7,6 +7,15 @@
 		<link type="text/css" rel="stylesheet" href="main.css">
 
 	<body>
+		<audio loop id="music" preload="auto" style="display: none">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
+		</audio>
+
+		<div id="overlay">
+			<button id="startButton">Play</button>
+		</div>
+
+		
 		<div id="info">
 			<a href="" target="_blank" rel="noopener">MONRO - INTEGRALES</a> - DISEÑOS<br />
 			
@@ -46,6 +55,12 @@
 
 			const grid = new THREE.GridHelper(100, 100);
 			scene.add(grid);
+
+			const listener = new THREE.AudioListener();
+			camera.add( listener );
+
+			const audioElement = document.getElementById( 'music' );
+			audioElement.play();
 
 			const gltfLoader = new GLTFLoader();
 			const rgbeLoader = new RGBELoader();
