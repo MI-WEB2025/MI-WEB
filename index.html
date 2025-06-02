@@ -12,6 +12,15 @@
 			
 		</div>
 
+			<audio loop id="music" preload="auto" style="display: none">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
+		</audio>
+	
+		<div id="overlay">
+			<button id="startButton">Play</button>
+		</div>
+
 		<script type="importmap">
 			{
 				"imports": {
@@ -25,14 +34,19 @@
 
 			import * as THREE from 'three';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+			import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
-			const renderer = new THREE.WebGLRenderer({antialias: true});
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			document.body.appendChild(renderer.domElement);
+			
 
 			const scene = new THREE.Scene();
+
+			const startButton = document.getElementById( 'startButton' );
+		        startButton.addEventListener( 'click' );
+
+			const overlay = document.getElementById( 'overlay' );
+			overlay.remove();
 
 			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
                         camera.position.set(0, 4, 5);
@@ -47,35 +61,49 @@
 			const grid = new THREE.GridHelper(100, 100);
 			scene.add(grid);
 
+			const listener = new THREE.AudioListener();
+			camera.add( listener );
+
+			const audioElement = document.getElementById( 'music' );
+			audioElement.play();
+
+			const positionalAudio = new THREE.PositionalAudio( listener );
+			positionalAudio.setMediaElementSource( audioElement );
+			positionalAudio.setRefDistance( 1 );
+			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
+
+			
 			const gltfLoader = new GLTFLoader();
-			const rgbeLoader = new RGBELoader();
+			gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
 
-			renderer.outputEncoding = THREE.sRGBEncoding;
-			renderer.toneMapping = THREE.ACESFilmicToneMapping;
-			renderer.toneMappingExposure = 4;
+				const boomBox = gltf.scene;
+				boomBox.position.set( 0, 0.2, 0 );
+				boomBox.scale.set( 20, 20, 20 );
 
-			
-			rgbeLoader.load('./images/HDR.hdr', function(texture) {
-				texture.mapping = THREE.EquirectangularReflectionMapping;
-				scene.environment = texture;
-			
-				gltfLoader.load('./modelo/diseños.glb', function(gltf) {
-					const model = gltf.scene;
-					model.position.set(0, 0, 0);
-					model.traverse((o) => {
-						if (o.isMesh) {
-						o.material.wireframe = true;
-						}
-					});
-					scene.add(model);
-				});
+				boomBox.traverse( function ( object ) {
 
-				
-			}, undefined, function ( error ) {
-			
-				console.error( error );
-			
+					if ( object.isMesh ) {
+
+						
+						object.geometry.rotateY( - Math.PI );
+						object.castShadow = true;
+
+					}
+
+				} );
+
+				boomBox.add( positionalAudio );
+				scene.add( boomBox );
+		
+				renderer.setAnimationLoop( animate );
+
 			} );
+
+			const renderer = new THREE.WebGLRenderer( { antialias: true } );
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.shadowMap.enabled = true;
+			
 			
 			function animate(time) {
  
@@ -83,7 +111,7 @@
 
 			}
 
-			renderer.setAnimationLoop(animate);
+			
 
 			window.addEventListener('resize', function() {
 				camera.aspect = window.innerWidth / window.innerHeight;
