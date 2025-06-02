@@ -45,12 +45,6 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
-			const listener = new THREE.AudioListener();
-			camera.add( listener );
-	
-			const audioElement = document.getElementById( 'music' );
-			audioElement.play();
-
 			const orbit = new OrbitControls(camera, renderer.domElement);
                         orbit.minDistance = 2;
 			orbit.maxDistance = 20;
