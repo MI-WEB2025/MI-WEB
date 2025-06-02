@@ -50,11 +50,7 @@
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
 
-			const orbit = new OrbitControls(camera, renderer.domElement);
-                        orbit.minDistance = 2;
-			orbit.maxDistance = 20;
-			orbit.target.set( 0, 0, - 0.2 );
-			orbit.update();
+			
 
 			const grid = new THREE.GridHelper(100, 100);
 			scene.add(grid);
@@ -102,6 +98,11 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.shadowMap.enabled = true;
 			
+			const orbit = new OrbitControls(camera, renderer.domElement);
+                        orbit.minDistance = 2;
+			orbit.maxDistance = 20;
+			orbit.target.set( 0, 0, - 0.2 );
+			orbit.update();
 			
 			function animate(time) {
  
