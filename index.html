@@ -48,6 +48,8 @@
 			const overlay = document.getElementById( 'overlay' );
 			overlay.remove();
 
+			const container = document.getElementById( 'container' );
+
 			const scene = new THREE.Scene();
 
 			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
@@ -69,6 +71,14 @@
 			const audioElement = document.getElementById( 'music' );
 			audioElement.play();
 
+			const positionalAudio = new THREE.PositionalAudio( listener );
+			positionalAudio.setMediaElementSource( audioElement );
+			positionalAudio.setRefDistance( 1 );
+			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
+
+			const helper = new PositionalAudioHelper( positionalAudio, 0.1 );
+			positionalAudio.add( helper );
+
 			const gltfLoader = new GLTFLoader();
 			const rgbeLoader = new RGBELoader();
 
@@ -89,6 +99,7 @@
 						o.material.wireframe = true;
 						}
 					});
+					model.add( positionalAudio );
 					scene.add(model);
 				});
 
