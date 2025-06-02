@@ -66,10 +66,7 @@
 			const audioElement = document.getElementById( 'music' );
 			audioElement.play();
 
-			const positionalAudio = new THREE.PositionalAudio( listener );
-			positionalAudio.setMediaElementSource( audioElement );
-			positionalAudio.setRefDistance( 1 );
-			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
+			
 
 			const gltfLoader = new GLTFLoader();
 			const rgbeLoader = new RGBELoader();
@@ -91,7 +88,7 @@
 						o.material.wireframe = true;
 						}
 					});
-					model.add( positionalAudio );
+					
 					scene.add(model);
 
 					
@@ -111,7 +108,7 @@
 
 			}
 
-			renderer.setAnimationLoop(animate);
+			
 
 			window.addEventListener('resize', function() {
 				camera.aspect = window.innerWidth / window.innerHeight;
