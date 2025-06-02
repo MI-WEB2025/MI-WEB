@@ -1,95 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 	<head>
-		<title>three.js webaudio - orientation</title>
+		<title>Diseños</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
-	</head>
-<body>
 
-	<audio loop id="music" preload="auto" style="display: none">
-		<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
-		<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
-	</audio>
+	<body>
 
-	<div id="overlay">
-		<button id="startButton">Play</button>
-	</div>
-	<div id="container"></div>
-	
+		<audio loop id="music" preload="auto" style="display: none">
+			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
+			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
+		</audio>
+		
+		<div id="info">
+			<a href="" target="_blank" rel="noopener">MONRO - INTEGRALES</a> - DISEÑOS<br />
+			
+		</div>
 
-	<script type="importmap">
-		{
-			"imports": {
-				"three": "./build/three.module.js",
-				"three/addons/": "./jsm/"
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
 			}
-		}
-	</script>
+		</script>
 
-	<script type="module">
-		import * as THREE from 'three';
+		<script type="module">
 
-		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-		import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
-		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import * as THREE from 'three';
+			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+			import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
+			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
-		let scene, camera, renderer;
+			const renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
 
-		const startButton = document.getElementById( 'startButton' );
-		startButton.addEventListener( 'click', init );
+			const scene = new THREE.Scene();
 
-		function init() {
+			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
+                        camera.position.set(0, 4, 5);
+			renderer.setClearColor(0xffffff);
 
-			const overlay = document.getElementById( 'overlay' );
-			overlay.remove();
+			const orbit = new OrbitControls(camera, renderer.domElement);
+                        orbit.minDistance = 2;
+			orbit.maxDistance = 20;
+			orbit.target.set( 0, 0, - 0.2 );
+			orbit.update();
 
-			const container = document.getElementById( 'container' );
-
-			//
-
-			camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
-			camera.position.set( 3, 2, 3 );
-
-			const reflectionCube = new THREE.CubeTextureLoader()
-				.setPath( 'textures/cube/SwedishRoyalCastle/' )
-				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
-
-			scene = new THREE.Scene();
-			scene.background = new THREE.Color( 0xa0a0a0 );
-			scene.fog = new THREE.Fog( 0xa0a0a0, 2, 20 );
-
-			//
-
-			const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x8d8d8d, 3 );
-			hemiLight.position.set( 0, 20, 0 );
-			scene.add( hemiLight );
-
-			const dirLight = new THREE.DirectionalLight( 0xffffff, 3 );
-			dirLight.position.set( 5, 5, 0 );
-			dirLight.castShadow = true;
-			dirLight.shadow.camera.top = 1;
-			dirLight.shadow.camera.bottom = - 1;
-			dirLight.shadow.camera.left = - 1;
-			dirLight.shadow.camera.right = 1;
-			dirLight.shadow.camera.near = 0.1;
-			dirLight.shadow.camera.far = 20;
-			scene.add( dirLight );
-
-			// scene.add( new THREE.CameraHelper( dirLight.shadow.camera ) );
-
-			//
-
-			const mesh = new THREE.Mesh( new THREE.PlaneGeometry( 50, 50 ), new THREE.MeshPhongMaterial( { color: 0xcbcbcb, depthWrite: false } ) );
-			mesh.rotation.x = - Math.PI / 2;
-			mesh.receiveShadow = true;
-			scene.add( mesh );
-
-			const grid = new THREE.GridHelper( 50, 50, 0xc1c1c1, 0xc1c1c1 );
-			scene.add( grid );
-
-			//
+			const grid = new THREE.GridHelper(100, 100);
+			scene.add(grid);
 
 			const listener = new THREE.AudioListener();
 			camera.add( listener );
@@ -102,86 +65,52 @@
 			positionalAudio.setRefDistance( 1 );
 			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
 
-			const helper = new PositionalAudioHelper( positionalAudio, 0.1 );
-			positionalAudio.add( helper );
-
-			//
-
 			const gltfLoader = new GLTFLoader();
-			gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
+			const rgbeLoader = new RGBELoader();
 
-				const boomBox = gltf.scene;
-				boomBox.position.set( 0, 0.2, 0 );
-				boomBox.scale.set( 20, 20, 20 );
+			renderer.outputEncoding = THREE.sRGBEncoding;
+			renderer.toneMapping = THREE.ACESFilmicToneMapping;
+			renderer.toneMappingExposure = 4;
 
-				boomBox.traverse( function ( object ) {
+			
+			rgbeLoader.load('./images/HDR.hdr', function(texture) {
+				texture.mapping = THREE.EquirectangularReflectionMapping;
+				scene.environment = texture;
+			
+				gltfLoader.load('./modelo/diseños.glb', function(gltf) {
+					const model = gltf.scene;
+					model.position.set(0, 0, 0);
+					model.traverse((o) => {
+						if (o.isMesh) {
+						o.material.wireframe = true;
+						}
+					});
+					model.add( positionalAudio );
+					scene.add(model);
+				});
 
-					if ( object.isMesh ) {
-
-						object.material.envMap = reflectionCube;
-						object.geometry.rotateY( - Math.PI );
-						object.castShadow = true;
-
-					}
-
-				} );
-
-				boomBox.add( positionalAudio );
-				scene.add( boomBox );
-		
-				renderer.setAnimationLoop( animate );
-
+				
+			}, undefined, function ( error ) {
+			
+				console.error( error );
+			
 			} );
+			
+			function animate(time) {
+ 
+				renderer.render(scene, camera);
 
-			// sound is damped behind this wall
+			}
 
-			const wallGeometry = new THREE.BoxGeometry( 2, 1, 0.1 );
-			const wallMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.5 } );
+			renderer.setAnimationLoop(animate);
 
-			const wall = new THREE.Mesh( wallGeometry, wallMaterial );
-			wall.position.set( 0, 0.5, - 0.5 );
-			scene.add( wall );
+			window.addEventListener('resize', function() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			});
 
+		</script>
 
-			//
-
-			renderer = new THREE.WebGLRenderer( { antialias: true } );
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			renderer.shadowMap.enabled = true;
-			container.appendChild( renderer.domElement );
-
-			//
-
-			const controls = new OrbitControls( camera, renderer.domElement );
-			controls.target.set( 0, 0.1, 0 );
-			controls.update();
-			controls.minDistance = 0.5;
-			controls.maxDistance = 10;
-			controls.maxPolarAngle = 0.5 * Math.PI;
-
-			//
-
-			window.addEventListener( 'resize', onWindowResize );
-
-		}
-
-		function onWindowResize() {
-
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-
-			renderer.setSize( window.innerWidth, window.innerHeight );
-
-		}
-
-		function animate() {
-
-			renderer.render( scene, camera );
-
-		}
-
-	</script>
-
-</body>
+	</body>
 </html>
