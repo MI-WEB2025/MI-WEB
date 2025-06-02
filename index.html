@@ -12,13 +12,13 @@
 			
 		</div>
 
-			<audio loop id="music" preload="auto" style="display: none">
+		<audio loop id="music" preload="auto" style="display: none">
 			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
 			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
 		</audio>
 	
 		<div id="overlay">
-			<button id="startButton">Play</button>
+		   <button id="startButton">Play</button>
 		</div>
 
 		<script type="importmap">
@@ -38,16 +38,14 @@
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
-			
-
-			const scene = new THREE.Scene();
-
 			const startButton = document.getElementById( 'startButton' );
 		        startButton.addEventListener( 'click' );
-
+			
 			const overlay = document.getElementById( 'overlay' );
 			overlay.remove();
 
+			const scene = new THREE.Scene();
+			
 			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
                         camera.position.set(0, 4, 5);
 			renderer.setClearColor(0xffffff);
