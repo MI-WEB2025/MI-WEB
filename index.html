@@ -12,6 +12,10 @@
 			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
 			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
 		</audio>
+
+		<div id="overlay">
+			<button id="startButton">Play</button>
+		</div>
 		
 		<div id="info">
 			<a href="" target="_blank" rel="noopener">MONRO - INTEGRALES</a> - DISEÑOS<br />
@@ -38,6 +42,9 @@
 			const renderer = new THREE.WebGLRenderer({antialias: true});
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
+
+			const overlay = document.getElementById( 'overlay' );
+			overlay.remove();
 
 			const scene = new THREE.Scene();
 
