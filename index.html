@@ -55,9 +55,10 @@
 			scene.add(grid);
 
 			const listener = new THREE.AudioListener();
-			camera.add( listener );
+			scene.add( listener );
 
-			
+			const audioElement = document.getElementById( 'music' );
+			audioElement.play();
 
 			
 
