@@ -79,7 +79,7 @@
 				positionalAudio.setDirectionalCone( 180, 230, 0.1 );
 	
 				const gltfLoader = new GLTFLoader();
-				gltfLoader.load( './modelo/diseños.glb', function ( gltf ) {
+				gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
 	
 					const boomBox = gltf.scene;
 					boomBox.position.set( 0, 0 , 0 );
@@ -102,7 +102,7 @@
 	
 				} );
 	
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				const renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.shadowMap.enabled = true;
