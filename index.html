@@ -34,11 +34,12 @@
 		import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
 		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+		let scene, camera, renderer;
+
 		const startButton = document.getElementById( 'startButton' );
 		startButton.addEventListener( 'click', init );
 
-		let scene, camera, renderer;
-
+		
 		function init() {
 
 			const overlay = document.getElementById( 'overlay' );
@@ -108,7 +109,7 @@
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.shadowMap.enabled = true;
-			container.appendChild( renderer.domElement );
+			document.appendChild( renderer.domElement );
 
 			const controls = new OrbitControls( camera, renderer.domElement );
 			controls.target.set( 0, 0.1, 0 );
