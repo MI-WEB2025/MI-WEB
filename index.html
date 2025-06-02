@@ -8,6 +8,7 @@
 
 	<body>
 		<audio loop id="music" preload="auto" style="display: none">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
 			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
 		</audio>
 
@@ -43,6 +44,9 @@
 
 			const startButton = document.getElementById( 'startButton' );
 		        startButton.addEventListener( 'click', init );
+
+			const overlay = document.getElementById( 'overlay' );
+			overlay.remove();
 
 			const scene = new THREE.Scene();
 
