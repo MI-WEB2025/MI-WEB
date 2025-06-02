@@ -9,8 +9,8 @@
 	<body>
 
 		<audio loop id="music" preload="auto" style="display: none">
-			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
-			<source src="./sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
+			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
 		</audio>
 
 		<div id="info">
@@ -35,6 +35,7 @@
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
 			const renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
 
