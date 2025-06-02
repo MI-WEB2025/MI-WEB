@@ -28,8 +28,8 @@
 	</script>
 
 	<script type="module">
+		
 		import * as THREE from 'three';
-
 		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 		import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
 		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -81,7 +81,7 @@
 			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
 
 			const gltfLoader = new GLTFLoader();
-			gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
+			gltfLoader.load( './modelo/diseños.glb', function ( gltf ) {
 
 				const boomBox = gltf.scene;
 				boomBox.position.set( 0, 0 , 0 );
