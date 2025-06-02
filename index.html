@@ -41,6 +41,9 @@
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
 
+			const startButton = document.getElementById( 'startButton' );
+		        startButton.addEventListener( 'click', init );
+
 			const scene = new THREE.Scene();
 
 			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
