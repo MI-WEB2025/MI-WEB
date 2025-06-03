@@ -12,15 +12,6 @@
 			
 		</div>
 
-		<audio loop id="music" preload="auto" style="display: none">
-			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.ogg" type="audio/ogg">
-			<source src="sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3" type="audio/mpeg">
-		</audio>
-	
-		<div id="overlay">
-		   <button id="startButton">Play</button>
-		</div>
-
 		<script type="importmap">
 			{
 				"imports": {
@@ -34,48 +25,28 @@
 
 			import * as THREE from 'three';
 			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-			import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
 			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 
-			
-                        
-			
-				
-			const renderer = new THREE.WebGLRenderer( { antialias: true } );
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			renderer.shadowMap.enabled = true;
+			const renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
-		
-			const overlay = document.getElementById( 'overlay' );
-			overlay.remove();
 
 			const scene = new THREE.Scene();
-			
+
 			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
-			camera.position.set(0, 4, 5);
-		
+                        camera.position.set(0, 4, 5);
+			renderer.setClearColor(0xffffff);
+
+			const orbit = new OrbitControls(camera, renderer.domElement);
+                        orbit.minDistance = 2;
+			orbit.maxDistance = 20;
+			orbit.target.set( 0, 0, - 0.2 );
+			orbit.update();
+
 			const grid = new THREE.GridHelper(100, 100);
 			scene.add(grid);
 
-			const listener = new THREE.AudioListener();
-			camera.add( listener );
-
-			const audioElement = document.getElementById( 'music' );
-			audioElement.play();
-
-			const positionalAudio = new THREE.PositionalAudio( listener );
-			positionalAudio.setMediaElementSource( audioElement );
-			positionalAudio.setRefDistance( 1 );
-			positionalAudio.setDirectionalCone( 180, 230, 0.1 );
-			
-
-			const light = new THREE.DirectionalLight(0xffffff, 1, 100);
-			light.position.set(0, 1, 1);
-			light.castShadow = true; 
-			scene.add(light); 
-			
 			const gltfLoader = new GLTFLoader();
 			const rgbeLoader = new RGBELoader();
 
@@ -96,7 +67,6 @@
 						o.material.wireframe = true;
 						}
 					});
-					model.add( positionalAudio );
 					scene.add(model);
 				});
 
@@ -106,32 +76,21 @@
 				console.error( error );
 			
 			} );
-
-			
-			
-			const orbit = new OrbitControls(camera, renderer.domElement);
-			orbit.minDistance = 2;
-			orbit.maxDistance = 20;
-			orbit.target.set( 0, 0, - 0.2 );
-			orbit.update();
-
-			window.addEventListener( 'resize', onWindowResize );
-			
-
-			function onWindowResize() {
-
-				camera.updateProjectionMatrix();
-				renderer.setSize( window.innerWidth, window.innerHeight );
-	
-			}
 			
 			function animate(time) {
-                                
+ 
 				renderer.render(scene, camera);
-                                renderer.setAnimationLoop( animate );
+
 			}
-                        
-			
+
+			renderer.setAnimationLoop(animate);
+
+			window.addEventListener('resize', function() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+			});
+
 		</script>
 
 	</body>
