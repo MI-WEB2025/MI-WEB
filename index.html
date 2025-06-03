@@ -331,17 +331,17 @@
 				backgroundMaterial.roughness = 0.4;
 				backgroundMaterial.metalness = 0.9;
 				backgroundMaterial.flatShading = true;
-				backgroundMaterial.colorNode = color( 0x0 );
+				backgroundMaterial.colorNode = color( 0xf );
 
 				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
 				scene.add( backgroundMesh );
 
 				// light for the background
-				light = new THREE.PointLight( 0xffffff, 3000 );
+				light = new THREE.PointLight( 0xffffff, 5000 );
 				scene.add( light );
 
 				const gltfLoader = new GLTFLoader();
-				gltfLoader.load( './modelo/diseño.glb', function ( gltf ) {
+				gltfLoader.load( 'modelo/diseño.glb', function ( gltf ) {
 	
 					const boomBox = gltf.scene;
 					boomBox.position.set( 0, 0 , 0 );
