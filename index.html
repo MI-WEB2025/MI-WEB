@@ -70,6 +70,7 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.shadowMap.enabled = true;
 				renderer.setClearColor(0xFFFFFF);
+				document.body.appendChild(renderer.domElement);
 	
 				const gltfLoader = new GLTFLoader();
 				const rgbeLoader = new RGBELoader();
