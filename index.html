@@ -70,9 +70,13 @@
 				positionalAudio.setMediaElementSource( audioElement );
 				positionalAudio.setRefDistance( 1 );
 				positionalAudio.setDirectionalCone( 180, 230, 0.1 );
-
 				
-	
+
+				const light = new THREE.DirectionalLight(0xffffff, 1, 100);
+			        light.position.set(0, 1, 1);
+			        light.castShadow = true; 
+			        scene.add(light); 
+				
 				const gltfLoader = new GLTFLoader();
 				const rgbeLoader = new RGBELoader();
 	
@@ -124,7 +128,7 @@
 			}
 			
 			function animate(time) {
-                                renderer.setClearColor(0xffffff);
+                                
 				renderer.render(scene, camera);
                                 renderer.setAnimationLoop( animate );
 			}
