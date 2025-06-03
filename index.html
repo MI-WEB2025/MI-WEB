@@ -64,6 +64,12 @@
 				positionalAudio.setMediaElementSource( audioElement );
 				positionalAudio.setRefDistance( 1 );
 				positionalAudio.setDirectionalCone( 180, 230, 0.1 );
+
+				const renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.shadowMap.enabled = true;
+				renderer.setClearColor(0xffffff);
 	
 				const gltfLoader = new GLTFLoader();
 				const rgbeLoader = new RGBELoader();
@@ -96,11 +102,7 @@
 				
 				} );
 	
-				const renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.shadowMap.enabled = true;
-				renderer.setClearColor(0xffffff);
+				
 				
 				const orbit = new OrbitControls(camera, renderer.domElement);
 	                        orbit.minDistance = 2;
