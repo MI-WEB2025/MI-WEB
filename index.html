@@ -331,7 +331,7 @@
 				backgroundMaterial.roughness = 0.4;
 				backgroundMaterial.metalness = 0.9;
 				backgroundMaterial.flatShading = true;
-				backgroundMaterial.colorNode = color( 0xf );
+				backgroundMaterial.colorNode = color( 0xffffff );
 
 				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
 				scene.add( backgroundMesh );
@@ -340,21 +340,26 @@
 				light = new THREE.PointLight( 0xffffff, 5000 );
 				scene.add( light );
 
-				const gltfLoader = new GLTFLoader();
-				gltfLoader.load( 'modelo/diseño.glb', function ( gltf ) {
+				rgbeLoader.load('./images/HDR.hdr', function(texture) {
+					texture.mapping = THREE.EquirectangularReflectionMapping;
+					scene.environment = texture;
+				
+					gltfLoader.load('./modelo/diseño.glb', function(gltf) {
+						const model = gltf.scene;
+						model.position.set(0, 0, 0);
+						model.traverse((o) => {
+							if (o.isMesh) {
+							o.material.wireframe = true;
+							}
+						});
+						scene.add(model);
+					});
 	
-					const boomBox = gltf.scene;
-					boomBox.position.set( 0, 0 , 0 );
-					boomBox.traverse( function ( object ) {
-	
-						if ( object.isMesh ) {
-	
-							object.material.wireframe = true;
-
-						}
-	
-					} );
-					scene.add( boomBox );
+					
+				}, undefined, function ( error ) {
+				
+					console.error( error );
+				
 				} );
 
 				// post processing
