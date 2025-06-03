@@ -50,10 +50,7 @@
 				
 				const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
 	                        camera.position.set(0, 4, 5);
-				
-	
-				
-	
+			
 				const grid = new THREE.GridHelper(100, 100);
 				scene.add(grid);
 	
@@ -68,31 +65,35 @@
 				positionalAudio.setRefDistance( 1 );
 				positionalAudio.setDirectionalCone( 180, 230, 0.1 );
 	
-				
 				const gltfLoader = new GLTFLoader();
-				gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
+				const rgbeLoader = new RGBELoader();
 	
-					const boomBox = gltf.scene;
-					boomBox.position.set( 0, 0.2, 0 );
-					boomBox.scale.set( 20, 20, 20 );
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
 	
-					boomBox.traverse( function ( object ) {
+				
+				rgbeLoader.load('./images/HDR.hdr', function(texture) {
+					texture.mapping = THREE.EquirectangularReflectionMapping;
+					scene.environment = texture;
+				
+					gltfLoader.load('./modelo/diseños.glb', function(gltf) {
+						const model = gltf.scene;
+						model.position.set(0, 0, 0);
+						model.traverse((o) => {
+							if (o.isMesh) {
+							o.material.wireframe = true;
+							}
+						});
+						model.add( positionalAudio );
+						scene.add(model);
+					});
 	
-						if ( object.isMesh ) {
-	
-							
-							object.geometry.rotateY( - Math.PI );
-							object.castShadow = true;
-	
-						}
-	
-					} );
-	
-					boomBox.add( positionalAudio );
-					scene.add( boomBox );
-			
 					
-	
+				}, undefined, function ( error ) {
+				
+					console.error( error );
+				
 				} );
 	
 				const renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -114,7 +115,6 @@
 
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
-	
 				renderer.setSize( window.innerWidth, window.innerHeight );
 	
 			}
