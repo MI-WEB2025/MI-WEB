@@ -82,6 +82,29 @@
 
 				scene = new THREE.Scene();
 
+				const gltfLoader = new GLTFLoader();
+				gltfLoader.load( 'modelo/diseño.glb', function ( gltf ) {
+	
+					const boomBox = gltf.scene;
+					boomBox.position.set( 0, 0, 0 );
+					boomBox.scale.set( 2, 2, 2 );
+	
+					boomBox.traverse( function ( object ) {
+	
+						if ( object.isMesh ) {
+	
+							object.castShadow = true;
+	
+						}
+	
+					} );
+	
+					scene.add( boomBox );
+			
+					renderer.setAnimationLoop( animate );
+	
+				} );
+
 				timer = new Timer();
 				timer.connect( document );
 
@@ -94,31 +117,6 @@
 				renderer.setAnimationLoop( animate );
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				document.body.appendChild( renderer.domElement );
-				
-				gltfLoader = new THREE.GLTFLoader();
-				rgbeLoader = new THREE.RGBELoader();
-
-				rgbeLoader.load('./images/HDR.hdr', function(texture) {
-					texture.mapping = THREE.EquirectangularReflectionMapping;
-					scene.environment = texture;
-				
-					gltfLoader.load('./modelo/diseño.glb', function(gltf) {
-						const model = gltf.scene;
-						model.position.set(0, 0, 0);
-						model.traverse((o) => {
-							if (o.isMesh) {
-							o.material.wireframe = true;
-							}
-						});
-						scene.add(model);
-					});
-	
-					
-				}, undefined, function ( error ) {
-				
-					console.error( error );
-				
-				} );
 
 				// TSL function
 				// current color from index
