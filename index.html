@@ -42,6 +42,12 @@
 		        startButton.addEventListener( 'click', init );
                         
 			function init() {
+				
+				const renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.shadowMap.enabled = true;
+				document.body.appendChild(renderer.domElement);
 			
 				const overlay = document.getElementById( 'overlay' );
 				overlay.remove();
@@ -65,12 +71,7 @@
 				positionalAudio.setRefDistance( 1 );
 				positionalAudio.setDirectionalCone( 180, 230, 0.1 );
 
-				const renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.shadowMap.enabled = true;
-				renderer.setClearColor(0xFFFFFF);
-				document.body.appendChild(renderer.domElement);
+				
 	
 				const gltfLoader = new GLTFLoader();
 				const rgbeLoader = new RGBELoader();
@@ -123,7 +124,7 @@
 			}
 			
 			function animate(time) {
- 
+                                renderer.setClearColor(0xffffff);
 				renderer.render(scene, camera);
                                 renderer.setAnimationLoop( animate );
 			}
