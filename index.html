@@ -340,6 +340,9 @@
 				light = new THREE.PointLight( 0xffffff, 5000 );
 				scene.add( light );
 
+				const gltfLoader = new GLTFLoader();
+				const rgbeLoader = new RGBELoader();
+
 				rgbeLoader.load('./images/HDR.hdr', function(texture) {
 					texture.mapping = THREE.EquirectangularReflectionMapping;
 					scene.environment = texture;
