@@ -94,6 +94,31 @@
 				renderer.setAnimationLoop( animate );
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				document.body.appendChild( renderer.domElement );
+				
+				gltfLoader = new THREE.GLTFLoader();
+				rgbeLoader = new THREE.RGBELoader();
+
+				rgbeLoader.load('./images/HDR.hdr', function(texture) {
+					texture.mapping = THREE.EquirectangularReflectionMapping;
+					scene.environment = texture;
+				
+					gltfLoader.load('./modelo/diseño.glb', function(gltf) {
+						const model = gltf.scene;
+						model.position.set(0, 0, 0);
+						model.traverse((o) => {
+							if (o.isMesh) {
+							o.material.wireframe = true;
+							}
+						});
+						scene.add(model);
+					});
+	
+					
+				}, undefined, function ( error ) {
+				
+					console.error( error );
+				
+				} );
 
 				// TSL function
 				// current color from index
@@ -340,30 +365,7 @@
 				light = new THREE.PointLight( 0xffffff, 15000 );
 				scene.add( light );
 
-				gltfLoader = new GLTFLoader();
-				rgbeLoader = new RGBELoader();
-
-				rgbeLoader.load('./images/HDR.hdr', function(texture) {
-					texture.mapping = THREE.EquirectangularReflectionMapping;
-					scene.environment = texture;
 				
-					gltfLoader.load('./modelo/diseño.glb', function(gltf) {
-						const model = gltf.scene;
-						model.position.set(0, 0, 0);
-						model.traverse((o) => {
-							if (o.isMesh) {
-							o.material.wireframe = true;
-							}
-						});
-						scene.add(model);
-					});
-	
-					
-				}, undefined, function ( error ) {
-				
-					console.error( error );
-				
-				} );
 
 				// post processing
 
