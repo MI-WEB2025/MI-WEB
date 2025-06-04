@@ -329,12 +329,12 @@
 
 
 				// background , an inverted icosahedron
-				const backgroundGeom = new THREE.IcosahedronGeometry( 1000, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
+				const backgroundGeom = new THREE.IcosahedronGeometry( 500, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
 				const backgroundMaterial = new THREE.MeshStandardNodeMaterial();
 				backgroundMaterial.roughness = 0.4;
 				backgroundMaterial.metalness = 0.9;
 				backgroundMaterial.flatShading = true;
-				backgroundMaterial.colorNode = color( 0x0 );
+				backgroundMaterial.colorNode = color( 0xffffff );
 
 				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
 				scene.add( backgroundMesh );
