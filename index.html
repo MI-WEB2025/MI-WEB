@@ -27,8 +27,6 @@
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
                         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-			import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
-			import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { Timer } from 'three/addons/misc/Timer.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
@@ -97,26 +95,7 @@
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				document.body.appendChild( renderer.domElement );
 
-				const ktx2Loader = new KTX2Loader()
-					.setTranscoderPath( 'jsm/libs/basis/' )
-					.detectSupport( renderer );
-
-				const loader = new GLTFLoader().setPath( 'modelo/' );
-				loader.setKTX2Loader( ktx2Loader );
-				loader.setMeshoptDecoder( MeshoptDecoder );
-				loader.load( 'diseño.glb', function ( gltf ) {
-
-					// coffeemat.glb was produced from the source scene using gltfpack:
-					// gltfpack -i coffeemat/scene.gltf -o coffeemat.glb -cc -tc
-					// The resulting model uses EXT_meshopt_compression (for geometry) and KHR_texture_basisu (for texture compression using ETC1S/BasisLZ)
-
-					gltf.scene.position.y = 8;
-
-					scene.add( gltf.scene );
-
-					render();
-
-				} );
+				
 
 
 				// TSL function
@@ -350,7 +329,7 @@
 
 
 				// background , an inverted icosahedron
-				const backgroundGeom = new THREE.IcosahedronGeometry( 100, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
+				const backgroundGeom = new THREE.IcosahedronGeometry( 1000, 5 ).applyMatrix4( new THREE.Matrix4().makeScale( - 1, 1, 1 ) );
 				const backgroundMaterial = new THREE.MeshStandardNodeMaterial();
 				backgroundMaterial.roughness = 0.4;
 				backgroundMaterial.metalness = 0.9;
