@@ -99,6 +99,8 @@ a, button, input, select {
     display: block;
     top: 0;
     right: 0;
+    width: 80px;
+    height: 20px;
     text-align: center;
     border: 2px solid white;
     cursor: default;
