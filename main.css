@@ -90,3 +90,33 @@ a, button, input, select {
 	padding: 10px;
 }
 
+.options {
+    position: absolute;
+    background-color: rgba(194, 189, 189, 0.2);
+    color: #000;
+    text-decoration: none;
+    padding: 9px 2%;
+    display: block;
+    top: 0;
+    right: 0;
+    text-align: center;
+    border: 2px solid white;
+    cursor: default;
+}
+
+.options:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+}    
+.options:hover > .option {
+    display: block;     
+}
+
+.option {
+    display: none;    
+    min-height: 19.5px;   
+    cursor: pointer;     
+}
+
+.option:hover{
+    background-color: rgba(146, 139, 139, 0.8);
+}
