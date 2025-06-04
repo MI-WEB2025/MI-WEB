@@ -1,7 +1,7 @@
 .options {
     position: absolute;
     background-color: rgba(128, 128, 128, 0.2);
-    color: #000;
+    color: 0x9b9b9b;
     text-decoration: none;
     padding: 100px 20%;
     display: block;
