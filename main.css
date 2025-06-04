@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	background-color: #000;
-	color: #000;
+	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
 	line-height: 24px;
@@ -85,7 +85,7 @@ a, button, input, select {
 #notSupported {
 	width: 50%;
 	margin: auto;
-	background-color: #f00;
+	background-color: #000;
 	margin-top: 20px;
 	padding: 10px;
 }
@@ -97,7 +97,7 @@ a, button, input, select {
     background-color: rgba(204, 209, 209, 0.2);
     color: #000;
     text-decoration: none;
-    padding: 9px 2%;
+    padding: 9px;
     display: block;
     top: 0;
     right: 0;
