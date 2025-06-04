@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	background-color: #000;
-	color: #000;
+	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
 	line-height: 24px;
@@ -90,7 +90,7 @@ a, button, input, select {
 	padding: 10px;
 }
 
-options {
+.options {
     position: absolute;
     width: 80px;
     height: 20px;
@@ -106,19 +106,19 @@ options {
     cursor: default;
 }
 
-options:hover{
+.options:hover{
     background-color: rgba(0, 0, 0, 0.5);
 }    
-options:hover > .option {
+.options:hover > .option {
     display: block;     
 }
 
-option {
+.option {
     display: none;    
     min-height: 19.5px;   
     cursor: pointer;     
 }
 
-option:hover{
+.option:hover{
     background-color: rgba(146, 139, 139, 0.8);
 }
