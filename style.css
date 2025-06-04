@@ -1,13 +1,13 @@
 .options {
     position: absolute;
     background-color: rgba(146, 139, 139, 0.8);
-    color: 0x9b9b9b;
+    color: #00;
     text-decoration: none;
     padding: 10px 20%;
     display: block;
     top: 0;
     right: 0;
-    width: 100px;
+    width: 80px;
     height: 20px;
     text-align: center;
     border: 2px solid white;
