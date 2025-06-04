@@ -84,6 +84,19 @@
 
 				scene = new THREE.Scene();
 
+				timer = new Timer();
+				timer.connect( document );
+
+				// renderer
+
+				renderer = new THREE.WebGPURenderer( { antialias: true } );
+				renderer.setClearColor( 0x14171a );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setAnimationLoop( animate );
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				document.body.appendChild( renderer.domElement );
+
 				ktx2Loader = await new KTX2Loader()
 					.setTranscoderPath( './jsm/libs/basis/' )
 					.detectSupportAsync( renderer );
@@ -101,18 +114,6 @@
 
 				} );
 
-				timer = new Timer();
-				timer.connect( document );
-
-				// renderer
-
-				renderer = new THREE.WebGPURenderer( { antialias: true } );
-				renderer.setClearColor( 0x14171a );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setAnimationLoop( animate );
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				document.body.appendChild( renderer.domElement );
 
 				// TSL function
 				// current color from index
