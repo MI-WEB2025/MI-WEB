@@ -27,6 +27,7 @@
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
                         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { Timer } from 'three/addons/misc/Timer.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
@@ -95,7 +96,35 @@
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				document.body.appendChild( renderer.domElement );
 
+				const gltfLoader = new GLTFLoader();
+				const rgbeLoader = new RGBELoader();
+	
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
+	
 				
+				rgbeLoader.load('./images/HDR.hdr', function(texture) {
+					texture.mapping = THREE.EquirectangularReflectionMapping;
+					scene.environment = texture;
+				
+					gltfLoader.load('./modelo/diseños.glb', function(gltf) {
+						const model = gltf.scene;
+						model.position.set(0, 0, 0);
+						model.traverse((o) => {
+							if (o.isMesh) {
+							o.material.wireframe = true;
+							}
+						});
+						scene.add(model);
+					});
+	
+					
+				}, undefined, function ( error ) {
+				
+					console.error( error );
+				
+				} );
 
 
 				// TSL function
@@ -334,7 +363,7 @@
 				backgroundMaterial.roughness = 0.4;
 				backgroundMaterial.metalness = 0.9;
 				backgroundMaterial.flatShading = true;
-				backgroundMaterial.colorNode = color( 0xffffff );
+				backgroundMaterial.color.set( 0xffffff );
 
 				const backgroundMesh = new THREE.Mesh( backgroundGeom, backgroundMaterial );
 				scene.add( backgroundMesh );
