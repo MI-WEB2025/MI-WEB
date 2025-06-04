@@ -34,7 +34,7 @@
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 			import WebGPU from 'three/addons/capabilities/WebGPU.js';
 
-			let camera, scene, renderer, postProcessing, controls, timer, light, loader;
+			let camera, scene, renderer, postProcessing, controls, timer, light, loader, ktx2Loader;
 
 			let updateParticles, spawnParticles; // TSL compute nodes
 			let getInstanceColor; // TSL function
@@ -84,7 +84,7 @@
 
 				scene = new THREE.Scene();
 
-				const ktx2Loader = await new KTX2Loader()
+				ktx2Loader = await new KTX2Loader()
 					.setTranscoderPath( 'jsm/libs/basis/' )
 					.detectSupportAsync( renderer );
 
