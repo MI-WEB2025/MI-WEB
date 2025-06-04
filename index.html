@@ -27,6 +27,8 @@
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
                         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
+			import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { Timer } from 'three/addons/misc/Timer.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
@@ -82,27 +84,21 @@
 
 				scene = new THREE.Scene();
 
-				gltfLoader = new GLTFLoader();
-				gltfLoader.load( 'modelo/diseños.glb', function ( gltf ) {
-	
-					const boomBox = gltf.scene;
-					boomBox.position.set( 0, 0, 0 );
-					boomBox.scale.set( 2.0, 2.0, 2.0 );
-	
-					boomBox.traverse( function ( object ) {
-	
-						if ( object.isMesh ) {
-	
-							object.castShadow = true;
-	
-						}
-	
-					} );
-	
-					scene.add( boomBox );
-			
-					renderer.setAnimationLoop( animate );
-	
+				const ktx2Loader = await new KTX2Loader()
+					.setTranscoderPath( 'jsm/libs/basis/' )
+					.detectSupportAsync( renderer );
+
+				const loader = new GLTFLoader();
+				loader.setKTX2Loader( ktx2Loader );
+				loader.setMeshoptDecoder( MeshoptDecoder );
+				loader.load( 'modelo/diseño.glb', function ( gltf ) {
+
+					const gltfScene = gltf.scene;
+					gltfScene.position.y = 0;
+					gltfScene.scale.setScalar( 1.0 );
+
+					scene.add( gltfScene );
+
 				} );
 
 				timer = new Timer();
