@@ -52,14 +52,15 @@
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100 );
 				camera.position.set( 0, 6, 4 );
 				scene.add( camera );
-
-				const grid = new THREE.GridHelper(100, 100);
-				scene.add(grid);
-
+				
 				scene.add( new THREE.AmbientLight( 0xffffff ) );
 
 				const pointLight = new THREE.PointLight( 0x33b5e5, 1000000 );
 				camera.add( pointLight );
+
+				const grid = new THREE.GridHelper(100, 100);
+				grid.escale.set(1, 1, 1);
+				scene.add(grid);
 
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
