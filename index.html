@@ -53,6 +53,9 @@
 				camera.position.set( 0, 6, 4 );
 				scene.add( camera );
 
+				const grid = new THREE.GridHelper(100, 100);
+				scene.add(grid);
+
 				scene.add( new THREE.AmbientLight( 0xffffff ) );
 
 				const pointLight = new THREE.PointLight( 0x33b5e5, 1000000 );
