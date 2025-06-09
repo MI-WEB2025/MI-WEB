@@ -1,107 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		<title>Diseños</title>
+		<title>MONRO-INTEGRALES</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
-
-	<body>
-		<div id="info">
-			<a href="" target="_blank" rel="noopener">MONRO - INTEGRALES</a> - DISEÑOS<br />
-			
-		</div>
 		
-		<div class="options">PRESUPUESTO
+	</head>
+	<body>
 
-		        <div class="option" data-option="publicidad">
-		            200€ DE LUZ
-			</div>
-			
-		</div>
+		<div id="container"></div>
 
 		<script type="importmap">
 			{
 				"imports": {
-					"three": "./build/three.module.js",
+					"three": "../build/three.webgpu.js",
+					"three/webgpu": "../build/three.webgpu.js",
+					"three/tsl": "../build/three.tsl.js",
 					"three/addons/": "./jsm/"
 				}
 			}
 		</script>
-		
-		
 
 		<script type="module">
 
 			import * as THREE from 'three';
-			import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-			import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-			import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
+			import { pass } from 'three/tsl';
+			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-			const renderer = new THREE.WebGLRenderer({antialias: true});
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			document.body.appendChild(renderer.domElement);
 
-			const scene = new THREE.Scene();
+			let camera;
+			let postProcessing, renderer;
 
-			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100 );
-                        camera.position.set(0, 4, 5);
-			renderer.setClearColor(0xffffff);
+			const params = {
+				threshold: 0,
+				strength: 0.310,
+				radius: 0,
+				exposure: 2
+			};
 
-			const orbit = new OrbitControls(camera, renderer.domElement);
-                        orbit.minDistance = 2;
-			orbit.maxDistance = 20;
-			orbit.target.set( 0, 0, - 0.2 );
-			orbit.update();
+			init();
 
-			const grid = new THREE.GridHelper(100, 100);
-			scene.add(grid);
+			async function init() {
 
-			const gltfLoader = new GLTFLoader();
-			const rgbeLoader = new RGBELoader();
+				const container = document.getElementById( 'container' );
 
-			renderer.outputEncoding = THREE.sRGBEncoding;
-			renderer.toneMapping = THREE.ACESFilmicToneMapping;
-			renderer.toneMappingExposure = 4;
+				const scene = new THREE.Scene();
 
-			
-			rgbeLoader.load('./images/HDR.hdr', function(texture) {
-				texture.mapping = THREE.EquirectangularReflectionMapping;
-				scene.environment = texture;
-			
-				gltfLoader.load('./modelo/diseños.glb', function(gltf) {
-					const model = gltf.scene;
-					model.position.set(0, 0, 0);
-					model.traverse((o) => {
-						if (o.isMesh) {
-						o.material.wireframe = true;
-						}
-					});
-					scene.add(model);
-				});
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100 );
+				camera.position.set( 0, 6, 4 );
+				scene.add( camera );
 
-				
-			}, undefined, function ( error ) {
-			
-				console.error( error );
-			
-			} );
-			
-			function animate(time) {
- 
-				renderer.render(scene, camera);
+				scene.add( new THREE.AmbientLight( 0xffffff ) );
+
+				const pointLight = new THREE.PointLight( 0x33b5e5, 1000000 );
+				camera.add( pointLight );
+
+				const loader = new GLTFLoader();
+				const gltf = await loader.loadAsync( 'models/gltf/diseños.glb' );
+
+				const model = gltf.scene;
+				scene.add( model );
+
+				//
+
+				renderer = new THREE.WebGPURenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setAnimationLoop( animate );
+				renderer.toneMapping = THREE.ReinhardToneMapping;
+				container.appendChild( renderer.domElement );
+
+				//
+
+				postProcessing = new THREE.PostProcessing( renderer );
+
+				const scenePass = pass( scene, camera );
+				const scenePassColor = scenePass.getTextureNode( 'output' );
+
+				const bloomPass = bloom( scenePassColor );
+
+				postProcessing.outputNode = scenePassColor.add( bloomPass );
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.maxPolarAngle = Math.PI * 0.5;
+				controls.target.set( 0, 0, 0 );
+				controls.minDistance = 0;
+				controls.maxDistance = 38;
+
+				window.addEventListener( 'resize', onWindowResize );
 
 			}
 
-			renderer.setAnimationLoop(animate);
+			function onWindowResize() {
 
-			window.addEventListener('resize', function() {
-				camera.aspect = window.innerWidth / window.innerHeight;
+				const width = window.innerWidth;
+				const height = window.innerHeight;
+
+				camera.aspect = width / height;
 				camera.updateProjectionMatrix();
-				renderer.setSize(window.innerWidth, window.innerHeight);
-			});
+
+				renderer.setSize( width, height );
+
+			}
+
+			function animate() {
+
+				postProcessing.render();
+
+			}
 
 		</script>
 
 	</body>
+
 </html>
