@@ -66,6 +66,7 @@
 				camera.add( pointLight );
 
 				const grid = new THREE.GridHelper(100, 100);
+				grid.position.set(0, -2, 0);
 				grid.scale.set(4, 4, 4);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
@@ -76,8 +77,8 @@
 
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
-
 				const model = gltf.scene;
+				model.position.set(0, -2, 0);
 				scene.add( model );
 
 				postProcessing = new THREE.PostProcessing( renderer );
@@ -91,9 +92,9 @@
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
-				controls.target.set( 0, 0, 5 );
+				controls.target.set( 0, 0, 0 );
 				controls.minDistance = 0;
-				controls.maxDistance = 20;
+				controls.maxDistance = 12;
 
 				window.addEventListener( 'resize', onWindowResize );
 
