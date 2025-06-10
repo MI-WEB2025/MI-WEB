@@ -60,7 +60,9 @@
 
 				const grid = new THREE.GridHelper(100, 100);
 				grid.position.set(0, -2, 0);
-				grid.scale.set(3, 3, 3);
+				grid.scale.set(3.5, 3.5, 3.5);
+				grid.castShadow = false;
+				grid.receiveShadow = false;
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
