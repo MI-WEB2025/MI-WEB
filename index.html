@@ -56,14 +56,14 @@
 				const scene = new THREE.Scene();
 				
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( 0, 4, 4 );
+				camera.position.set( 0, 3, 4 );
 				scene.add( camera );
 			
 				const pointLight = new THREE.PointLight( 0x33b5e5, 150000 );
 				camera.add( pointLight );
 				
 				const grid = new THREE.GridHelper(60, 60);
-				grid.position.set(2.5, -2, 0);
+				grid.position.set(1, -2, 0);
 				grid.scale.set(10, 10, 10);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
