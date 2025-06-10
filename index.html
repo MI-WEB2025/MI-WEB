@@ -76,10 +76,9 @@
 
 					geometry.computeVertexNormals();
 	
-					const material = new THREE.MeshStandardMaterial( { color: 0xa5a5a5 } );
+					const material = new THREE.MeshStandardMaterial();
 					const mesh = new THREE.Mesh( geometry, material );
-					mesh.castShadow = true;
-					mesh.receiveShadow = true;
+					mesh.position.set(0, -2, 0);
 					scene.add( mesh );
 	
 					// Release decoder resources.
