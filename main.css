@@ -9,8 +9,7 @@ body {
     display: block;
     top: 0;
     width: 100%;
-    margin: auto;
-    padding: 4px;
+    padding: 10px;
     text-align: center;
     cursor: default;
 }
@@ -23,12 +22,13 @@ body {
 }
 
 .option {
-    display: none;    
+    display: none;
+    color: #000;
     min-height: 49.5px;   
     cursor: pointer;     
 }
 
 .option:hover{
-    background-color: rgba(146, 139, 139, 0.8);
+    background-color: #fff;
 }
 
