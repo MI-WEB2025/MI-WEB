@@ -4,8 +4,8 @@ body {
 
 .options {
     position: absolute;
-    background-color: rgba(194, 189, 189, 0.2);
-    color: #fff;
+    background-color: transparent;
+    color: 0x33b5e5;
     text-decoration: none;
     padding: 20px 2%;
     display: block;
@@ -24,7 +24,7 @@ body {
 
 .option {
     display: none;    
-    min-height: 19.5px;   
+    min-height: 49.5px;   
     cursor: pointer;     
 }
 
