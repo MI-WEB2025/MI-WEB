@@ -22,13 +22,11 @@ body {
 }
 
 .option {
-    display: none;
-    color: #000;
-    min-height: 49.5px;   
+    display: block;   
     cursor: pointer;     
 }
 
 .option:hover{
-    background-color: #fff;
+    background-color: transparent;
 }
 
