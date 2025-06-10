@@ -8,6 +8,12 @@
 		
 	</head>
 	<body>
+		<div class="options">PRESUPUESTO
+
+		        <div class="option" data-option="publicidad">
+		            200€ de luz
+		        </div>
+		</div>
 
 		<div id="container"></div>
 
@@ -57,8 +63,8 @@
 				camera.add( pointLight );
 				
 				const grid = new THREE.GridHelper(60, 60);
-				grid.position.set(0, -2, 0);
-				grid.scale.set(8, 8, 8);
+				grid.position.set(2.5, -2, 0);
+				grid.scale.set(10, 10, 10);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 				
