@@ -76,8 +76,8 @@
 
 					geometry.computeVertexNormals();
 	
-					const material = new THREE.MeshStandardMaterial();
-					const mesh = new THREE.Mesh( geometry, material );
+					
+					const mesh = new THREE.Mesh( geometry );
 					mesh.position.set(0, -2, 0);
 					scene.add( mesh );
 	
