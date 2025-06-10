@@ -38,7 +38,7 @@
 				threshold: 0,
 				strength: 0.180,
 				radius: 0,
-				exposure: 2
+				exposure: 1
 			};
 
 			init();
@@ -57,7 +57,7 @@
 				const scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( 0, 6, 4 );
+				camera.position.set( 0, 4, 4 );
 				scene.add( camera );
 				
 				scene.add( new THREE.AmbientLight( 0xffffff ) );
