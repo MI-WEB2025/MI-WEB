@@ -38,14 +38,14 @@
 
 			async function init() {
 
-				const container = document.getElementById( 'container' );
-
 				renderer = new THREE.WebGPURenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.setAnimationLoop( animate );
 				renderer.toneMapping = THREE.ReinhardToneMapping;
 				container.appendChild( renderer.domElement );
+				
+				const container = document.getElementById( 'container' );
 
 				const scene = new THREE.Scene();
 
@@ -53,14 +53,14 @@
 				camera.position.set( 0, 4, 4 );
 				scene.add( camera );
 				
-				
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
 
 				const pointLight = new THREE.PointLight( 0x33b5e5, 200000 );
 				camera.add( pointLight );
 				
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 4;
+				
 
 				const grid = new THREE.GridHelper(100, 100);
 				grid.position.set(0, -2, 0);
