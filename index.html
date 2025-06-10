@@ -64,14 +64,14 @@
 				
 				renderer.outputEncoding = THREE.sRGBEncoding;
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 2;
+				renderer.toneMappingExposure = 4;
 
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
 				const model = gltf.scene;
 				model.traverse((o) => {
 					if (o.isMesh) {
-					o.material.color.set( 0x33b5e5 );
+					o.material.color.set( { color: 0x33b5e5, specular: 0x101010 } );
 					}
 				});
 				model.position.set(0, -2, 0);
