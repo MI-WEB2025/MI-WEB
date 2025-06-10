@@ -8,6 +8,7 @@ body {
     color: #33b5e5;
     display: block;
     top: 0;
+    right: 0;
     width: 300px;
     min-height: 250px;
     margin: auto;
