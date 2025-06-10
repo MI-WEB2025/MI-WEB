@@ -71,7 +71,7 @@
 				const model = gltf.scene;
 				model.traverse((o) => {
 					if (o.isMesh) {
-					o.material.color.set( { color: 0x33b5e5, specular: 0x101010 } );
+					o.material.color.set( { color: 0x33b5e5, specular: 0x33b5e5 } );
 					}
 				});
 				model.position.set(0, -2, 0);
