@@ -28,11 +28,15 @@
 			import { pass } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 
 			let camera;
 			let postProcessing, renderer;
+
+			const dracoLoader = new DRACOLoader();
+			dracoLoader.setDecoderPath( 'jsm/libs/draco/' );
+			dracoLoader.setDecoderConfig( { type: 'js' } );
 
 			init();
 
@@ -68,11 +72,20 @@
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				renderer.toneMappingExposure = 4;
 
-				const loader = new GLTFLoader();
-				const gltf = await loader.loadAsync( 'modelo/diseño.glb' );
-				const model = gltf.scene;
-				model.position.set(0, -2, 0);
-				scene.add( model );
+				dracoLoader.load( 'modelo/diseños.drc', function ( geometry ) {
+
+					geometry.computeVertexNormals();
+	
+					const material = new THREE.MeshStandardMaterial( { color: 0xa5a5a5 } );
+					const mesh = new THREE.Mesh( geometry, material );
+					mesh.castShadow = true;
+					mesh.receiveShadow = true;
+					scene.add( mesh );
+	
+					// Release decoder resources.
+					dracoLoader.dispose();
+	
+				} );
 
 				postProcessing = new THREE.PostProcessing( renderer );
 
