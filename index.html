@@ -66,11 +66,10 @@
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
-				
-
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
 				const model = gltf.scene;
+				model.material.color.set( 0x33b5e5 );
 				model.position.set(0, -2, 0);
 				scene.add( model );
 
