@@ -55,7 +55,7 @@
 				
 				scene.add( new THREE.AmbientLight( 0xffffff ) );
 
-				const pointLight = new THREE.PointLight( 0x33b5e5, 100000 );
+				const pointLight = new THREE.PointLight( 0x33b5e5, 200000 );
 				camera.add( pointLight );
 
 				const grid = new THREE.GridHelper(100, 100);
@@ -85,7 +85,7 @@
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
-				controls.target.set( 0, -1 , 0 );
+				controls.target.set( 0, 0,-1 );
 				controls.minDistance = 0;
 				controls.maxDistance = 12;
 
