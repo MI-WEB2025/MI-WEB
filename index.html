@@ -53,7 +53,7 @@
 				camera.position.set( 0, 4, 4 );
 				scene.add( camera );
 			
-				const pointLight = new THREE.PointLight( 0x33b5e5, 200000 );
+				const pointLight = new THREE.PointLight( 0x33b5e5, 150000 );
 				camera.add( pointLight );
 				
 				const grid = new THREE.GridHelper(100, 100);
@@ -64,7 +64,7 @@
 
 				renderer.outputEncoding = THREE.sRGBEncoding;
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 4;
+				renderer.toneMappingExposure = 2;
 
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
