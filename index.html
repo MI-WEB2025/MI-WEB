@@ -37,6 +37,10 @@
 			init();
 
 			async function init() {
+				
+				const container = document.getElementById( 'container' );
+				
+				const scene = new THREE.Scene();
 
 				renderer = new THREE.WebGPURenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -45,30 +49,22 @@
 				renderer.toneMapping = THREE.ReinhardToneMapping;
 				container.appendChild( renderer.domElement );
 				
-				const container = document.getElementById( 'container' );
-
-				const scene = new THREE.Scene();
-
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100 );
 				camera.position.set( 0, 4, 4 );
 				scene.add( camera );
-				
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 4;
-
+			
 				const pointLight = new THREE.PointLight( 0x33b5e5, 200000 );
 				camera.add( pointLight );
 				
-				
-
 				const grid = new THREE.GridHelper(100, 100);
 				grid.position.set(0, -2, 0);
 				grid.scale.set(4, 4, 4);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
-				
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
 
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
