@@ -9,13 +9,13 @@ body {
     display: block;
     top: 0;
     width: 100%;
-    padding: 10px;
+    padding: auto;
     text-align: center;
     cursor: default;
 }
 
 .options:hover{
-    max-width: 25%; 
+   
 	
     background-color: #fff;
 }    
