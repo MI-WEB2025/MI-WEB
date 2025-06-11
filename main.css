@@ -15,14 +15,17 @@ body {
 }
 
 .options:hover{
-    background-color: transparent;
+    width: 60px;
+	
+    background-color: #fff;
 }    
 .options:hover > .option {
     display: block;     
 }
 
 .option {
-    display: block;   
+    display: none;
+    padding-top: 10px;
     cursor: pointer;     
 }
 
