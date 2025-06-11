@@ -15,9 +15,7 @@ body {
 }
 
 .options:hover{
-   
-	
-    background-color: #fff;
+    background-color: transparent;
 }    
 .options:hover > .option {
     display: block;     
@@ -25,7 +23,7 @@ body {
 
 .option {
     display: none;
-    padding-top: 10px;
+    padding-top: 20px;
     cursor: pointer;     
 }
 
