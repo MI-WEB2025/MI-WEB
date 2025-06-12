@@ -9,16 +9,16 @@
 	</head>
 	<body>
 
-		
-
 		<div id="container"></div>
+
+		<audio autoplay src="sounds/monro.mp3"></audio>
 
 		<script type="importmap">
 			{
 				"imports": {
-					"three": "./build/three.webgpu.js",
-					"three/webgpu": "./build/three.webgpu.js",
-					"three/tsl": "./build/three.tsl.js",
+					"three": "../build/three.webgpu.js",
+					"three/webgpu": "../build/three.webgpu.js",
+					"three/tsl": "../build/three.tsl.js",
 					"three/addons/": "./jsm/"
 				}
 			}
@@ -29,50 +29,60 @@
 			import * as THREE from 'three';
 			import { pass } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
+
+			import Stats from 'three/addons/libs/stats.module.js';
+			
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 
-			let camera;
+			let camera, stats;
 			let postProcessing, renderer;
+
 
 			init();
 
 			async function init() {
-				
+
 				const container = document.getElementById( 'container' );
-				
-				renderer = new THREE.WebGPURenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setAnimationLoop( animate );
-				renderer.toneMapping = THREE.ReinhardToneMapping;
-				container.appendChild( renderer.domElement );
-				
+
 				const scene = new THREE.Scene();
-				
-				camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( 0, 0, 7 );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100 );
+				camera.position.set( 0, 6, 4 );
 				scene.add( camera );
-			
+
+				scene.add( new THREE.AmbientLight( 0xffffff ) );
+
 				const pointLight = new THREE.PointLight( 0x33b5e5, 150000 );
 				camera.add( pointLight );
-				
+
 				const grid = new THREE.GridHelper(60, 60);
 				grid.position.set(4.4, -2, 3.6);
 				grid.scale.set(10, 10, 10);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 4;
-
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
 				const model = gltf.scene;
 				model.position.set(0, -2, 0);
 				scene.add( model );
+
+				//
+
+				renderer = new THREE.WebGPURenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setAnimationLoop( animate );
+				renderer.toneMapping = THREE.ReinhardToneMapping;
+				container.appendChild( renderer.domElement );
+
+				//
+
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
 
 				postProcessing = new THREE.PostProcessing( renderer );
 
@@ -83,11 +93,20 @@
 
 				postProcessing.outputNode = scenePassColor.add( bloomPass );
 
+				//
+
+				stats = new Stats();
+				container.appendChild( stats.dom );
+
+				//
+
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
-				controls.target.set( 0, 0,-1.5 );
+				controls.target.set( 0, 0, 0 );
 				controls.minDistance = 0;
-				controls.maxDistance = 10;
+				controls.maxDistance = 58;
+
+				//
 
 				window.addEventListener( 'resize', onWindowResize );
 
@@ -109,11 +128,11 @@
 
 				postProcessing.render();
 
+				stats.update();
+
 			}
 
 		</script>
-
-		
 
 	</body>
 
