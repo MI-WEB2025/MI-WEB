@@ -5,20 +5,40 @@ body {
 	font-family: Monospace;
 	font-size: 23px;
 	line-height: 24px;
-	overscroll-behavior: none;
-	
+	overscroll-behavior: none;	
 }
 
 a {
-	color: #000;
+	color: #33b5e5;
 	text-decoration: none;
-	display: block;
-	
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 button {
 	cursor: pointer;
 	text-transform: uppercase;
+}
+
+#info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	z-index: 1; /* TODO Solve this in HTML */
+}
+
+a, button, input, select {
+	pointer-events: auto;
 }
 
 audio {
@@ -30,7 +50,3 @@ audio {
 	text-align: center;	
 }
 
-
-a, button, input, select {
-	pointer-events: auto;
-}
