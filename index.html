@@ -71,11 +71,10 @@
 				const audioLoader = new THREE.AudioLoader();
 				audioLoader.load( 'sounds/monro.mp3', function( buffer ) {
 					sound.setBuffer( buffer );
-					
+					sound.setLoop( false );
 					sound.setVolume( 0.5 );
 					sound.play();
 				});
-				scene.add( listener );
 				
 				renderer.outputEncoding = THREE.sRGBEncoding;
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -118,11 +117,13 @@
 
 			}
 
-			function animate() {
-
+			function animate(time) {
+ 
 				postProcessing.render();
 
 			}
+
+			renderer.setAnimationLoop(animate);
 
 		</script>
 
