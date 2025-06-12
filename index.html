@@ -8,6 +8,11 @@
 		
 	</head>
 	<body>
+		<div id="info">
+			<a href="https://1drv.ms/x/c/42a1baff56ad7e6c/IQT9DitvFVupRJjy1uPQ30MpAf_kAMQkGAmgStzwpJ0BXUg?em=2&wdAllowInteractivity=False&ActiveCell='Presupuesto'!B1&Item='Presupuesto'!B1%3AF59&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True" 
+				target="_blank" rel="noopener">PRESUPUESTO
+			</a>	
+		</div>
 
 		<div id="container"></div>
 
@@ -42,6 +47,13 @@
 			async function init() {
 
 				const container = document.getElementById( 'container' );
+				
+				renderer = new THREE.WebGPURenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setAnimationLoop( animate );
+				renderer.toneMapping = THREE.ReinhardToneMapping;
+				container.appendChild( renderer.domElement );
 
 				const scene = new THREE.Scene();
 
@@ -60,26 +72,15 @@
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 4;
+
 				const loader = new GLTFLoader();
 				const gltf = await loader.loadAsync( 'modelo/diseños.glb' );
 				const model = gltf.scene;
 				model.position.set(0, -2, 0);
 				scene.add( model );
-
-				//
-
-				renderer = new THREE.WebGPURenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setAnimationLoop( animate );
-				renderer.toneMapping = THREE.ReinhardToneMapping;
-				container.appendChild( renderer.domElement );
-
-				//
-
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 4;
 
 				postProcessing = new THREE.PostProcessing( renderer );
 
@@ -94,7 +95,7 @@
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
-				controls.target.set( 0, 0, 0 );
+				controls.target.set( 0, -2, 0 );
 				controls.minDistance = 0;
 				controls.maxDistance = 10;
 
