@@ -62,6 +62,19 @@
 				grid.scale.set(10, 10, 10);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
+
+				const listener = new THREE.AudioListener();
+				camera.add( listener );
+
+				const sound = new THREE.Audio( listener );
+
+				const audioLoader = new THREE.AudioLoader();
+				audioLoader.load( 'sounds/monro.mp3', function( buffer ) {
+					sound.setBuffer( buffer );
+					sound.setLoop( false );
+					sound.setVolume( 0.5 );
+					sound.play();
+				});
 				
 				renderer.outputEncoding = THREE.sRGBEncoding;
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
