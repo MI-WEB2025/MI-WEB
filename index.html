@@ -8,14 +8,7 @@
 		
 	</head>
 	<body>
-		<div class="options">PRESUPUESTO
-
-		        <div class="option" data-option="publicidad">
-		            <iframe width="820" height="900" frameborder="0" scrolling="no"
-				    src="https://1drv.ms/x/c/42a1baff56ad7e6c/IQT9DitvFVupRJjy1uPQ30MpAf_kAMQkGAmgStzwpJ0BXUg?em=2&wdAllowInteractivity=False&Item='Presupuesto'!A1%3AG57&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True">
-			    </iframe>
-		        </div>
-		</div>
+		
 
 		<div id="container"></div>
 
@@ -57,15 +50,15 @@
 				
 				const scene = new THREE.Scene();
 				
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( 0, 3, 4 );
+				camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 100 );
+				camera.position.set( 0, 0, 7 );
 				scene.add( camera );
 			
 				const pointLight = new THREE.PointLight( 0x33b5e5, 150000 );
 				camera.add( pointLight );
 				
 				const grid = new THREE.GridHelper(60, 60);
-				grid.position.set(1, -2, 0);
+				grid.position.set(4.4, -2, 3.6);
 				grid.scale.set(10, 10, 10);
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
@@ -93,7 +86,7 @@
 				controls.maxPolarAngle = Math.PI * 0.5;
 				controls.target.set( 0, 0,-1.5 );
 				controls.minDistance = 0;
-				controls.maxDistance = 12;
+				controls.maxDistance = 10;
 
 				window.addEventListener( 'resize', onWindowResize );
 
