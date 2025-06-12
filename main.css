@@ -1,32 +1,36 @@
 body {
-	margin: 0;	
+	margin: 0;
+	background-color: #000;
+	color: #000;
+	font-family: Monospace;
+	font-size: 23px;
+	line-height: 24px;
+	overscroll-behavior: none;
+	
 }
 
-.options {
-    position: absolute;
-    background-color: transparent;
-    color: #33b5e5;
-    display: block;
-    top: 0;
-    width: 0;
-    text-align: center;
-    cursor: default;
+a {
+	color: #000;
+	text-decoration: none;
+	display: block;
+	
 }
 
-.options:hover{
-    background-color: transparent;
-}    
-.options:hover > .option {
-    display: block;     
+button {
+	cursor: pointer;
+	text-transform: uppercase;
 }
 
-.option {
-    display: none;
-    margin: 10px;
-    cursor: pointer;     
+audio {
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;	
 }
 
-.option:hover{
-    background-color: transparent;
-}
 
+a, button, input, select {
+	pointer-events: auto;
+}
