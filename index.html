@@ -11,14 +11,14 @@
 
 		<div id="container"></div>
 
-		<audio autoplay src="sounds/monro.mp3"></audio>
+		<audio controls src="sounds/monro.mp3"></audio>
 
 		<script type="importmap">
 			{
 				"imports": {
-					"three": "./build/three.webgpu.js",
-					"three/webgpu": "./build/three.webgpu.js",
-					"three/tsl": "./build/three.tsl.js",
+					"three": "../build/three.webgpu.js",
+					"three/webgpu": "../build/three.webgpu.js",
+					"three/tsl": "../build/three.tsl.js",
 					"three/addons/": "./jsm/"
 				}
 			}
@@ -29,14 +29,11 @@
 			import * as THREE from 'three';
 			import { pass } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
-
-			import Stats from 'three/addons/libs/stats.module.js';
-			
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 
-			let camera, stats;
+			let camera;
 			let postProcessing, renderer;
 
 
@@ -48,8 +45,8 @@
 
 				const scene = new THREE.Scene();
 
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100 );
-				camera.position.set( 0, 6, 4 );
+				camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 100 );
+				camera.position.set( 0, 0, 7 );
 				scene.add( camera );
 
 				scene.add( new THREE.AmbientLight( 0xffffff ) );
@@ -95,11 +92,6 @@
 
 				//
 
-				stats = new Stats();
-				container.appendChild( stats.dom );
-
-				//
-
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.5;
 				controls.target.set( 0, 0, 0 );
@@ -127,8 +119,6 @@
 			function animate() {
 
 				postProcessing.render();
-
-				stats.update();
 
 			}
 
