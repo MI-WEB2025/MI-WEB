@@ -8,7 +8,8 @@
 		
 	</head>
 	<body>
-		
+
+		<audio autoplay src="sounds/monro.mp3"></audio>
 
 		<div id="container"></div>
 
@@ -63,20 +64,6 @@
 				grid.material.color.set( 0x33b5e5 );
 				scene.add(grid);
 
-				const listener = new THREE.AudioListener();
-				camera.add( listener );
-
-				const sound = new THREE.Audio( listener );
-
-				const audioLoader = new THREE.AudioLoader();
-				audioLoader.load( 'sounds/monro.mp3', function( buffer ) {
-					sound.setBuffer( buffer );
-					sound.setLoop( false );
-					sound.setVolume( 0.5 );
-					sound.play();
-				});
-				scene.add( audioLoader );
-				
 				renderer.outputEncoding = THREE.sRGBEncoding;
 				renderer.toneMapping = THREE.ACESFilmicToneMapping;
 				renderer.toneMappingExposure = 4;
@@ -118,15 +105,15 @@
 
 			}
 
-			function animate(time) {
- 
+			function animate() {
+
 				postProcessing.render();
 
 			}
 
-			render.setAnimationLoop(animate);
-
 		</script>
+
+		
 
 	</body>
 
