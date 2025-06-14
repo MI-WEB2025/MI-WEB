@@ -33,7 +33,7 @@ a:hover {
 	background-color: transparent;
 }
 
-a:hover > iframe {
+a:hover > embed {
 	padding: 20px;
 	display: block;
 }
@@ -42,7 +42,7 @@ a, button, input, select {
 	pointer-events: auto;
 }
 
-iframe{
+embed{
 	display: none;
 }
 
