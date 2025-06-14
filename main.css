@@ -6,6 +6,20 @@ body {
 	overscroll-behavior: none;	
 }
 
+a {
+	text-decoration: none;
+	color: #33b5e5;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
 #info {
 	position: absolute;
 	top: 0px;
@@ -21,29 +35,8 @@ body {
 	z-index: 1; /* TODO Solve this in HTML */
 }
 
-a {
-	border: 2px solid #33b5e5;
-	text-decoration: none;
-	color: #33b5e5;
-	padding: 4px 12px;
-}
-
-a:hover {
-	display: inline-block;
-	background-color: transparent;
-}
-
-a:hover > iframe {
-	display: block;
-}
-
 a, button, input, select {
 	pointer-events: auto;
-}
-
-iframe {
-	height: 440px;
-	display: none;
 }
 
 audio {
