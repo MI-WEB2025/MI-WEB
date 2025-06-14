@@ -34,6 +34,7 @@ a:hover {
 }
 
 a:hover > iframe {
+	text-align: center;
 	display: block;
 }
 
@@ -43,7 +44,7 @@ a, button, input, select {
 
 iframe {
 	height: 460px;
-	text-align: center;
+	
 	display: none;
 }
 
