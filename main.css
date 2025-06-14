@@ -34,7 +34,6 @@ a:hover {
 }
 
 a:hover > embed {
-	padding: 20px;
 	display: block;
 }
 
@@ -51,6 +50,5 @@ audio {
 	bottom: 10px;
 	width: 100%;
 	padding: 10px;
-	box-sizing: border-box;
-	text-align: center;	
+	box-sizing: border-box;	
 }
