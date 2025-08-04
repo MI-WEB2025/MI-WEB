@@ -39,10 +39,10 @@
 			import * as THREE from 'three';
 			import { atan, cos, float, max, min, mix, PI, PI2, sin, vec2, vec3, color, Fn, hash, hue, If, instanceIndex, Loop, mx_fractal_noise_float, mx_fractal_noise_vec3, pass, pcurve, storage, deltaTime, time, uv, uniform, mrt, output, emissive } from 'three/tsl';
 			import { bloom } from 'three/addons/tsl/display/BloomNode.js';
-            //import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+                        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 			import { PositionalAudioHelper } from 'three/addons/helpers/PositionalAudioHelper.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-			//import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+			import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 			
 			let camera, scene, renderer, postProcessing, controls, clock;
 			let updateParticles, spawnParticles; // TSL compute nodes
@@ -51,7 +51,7 @@
 			let esferas;
 			let video;
 			let meshu;
-			//let mixer;
+			let mixer;
 			//let mixer1;
 			
 			const screenPointer = new THREE.Vector2();
@@ -92,7 +92,7 @@
 
 				scene = new THREE.Scene();
 				
-				//clock = new THREE.Clock();
+				clock = new THREE.Clock();
 				
 				const listener = new THREE.AudioListener();
 				camera.add( listener );
@@ -118,14 +118,14 @@
 
 				//modelos
 
-				/*const rgbeLoader = new RGBELoader();
+				const rgbeLoader = new RGBELoader();
 
 				rgbeLoader.load('./textures/equirectangular/royal_esplanade_1k.hdr', function(texture) {
 					texture.mapping = THREE.EquirectangularReflectionMapping;
 					scene.environment = texture;
 					
-					const loader = new GLTFLoader().setPath( 'particulasfinal/' );
-					loader.load( 'partifinal.gltf', async function ( gltf ) {
+					const loader = new GLTFLoader().setPath( 'parti/' );
+					loader.load( 'parti.gltf', async function ( gltf ) {
 
 						const model = gltf.scene;
 
@@ -143,7 +143,7 @@
 
 					} );
 				
-					const loader1 = new GLTFLoader().setPath( 'mio1/' );
+					/*const loader1 = new GLTFLoader().setPath( 'mio1/' );
 					loader1.load( 'cyborg.gltf', async function ( gltf ) {
 
 						const model1 = gltf.scene;
@@ -589,8 +589,8 @@
 
 			function animate() {
 				
-				//const dt = clock.getDelta();
-				//if ( mixer ) mixer.update( dt );
+				const dt = clock.getDelta();
+				if ( mixer ) mixer.update( dt );
 				//if ( mixer1 ) mixer1.update( dt );
 
 				// compute particles
@@ -615,4 +615,5 @@
 			
 		</script>
 	</body>
+
 </html>
